@@ -1,18 +1,20 @@
 # Setting up the EGPU
 
-### Check your installed Kernel Version ```find /boot/vmli*``` ```uname -r ```
-### List all available kernels: ```dpkg --list | grep linux-image```    
+### 1. Check your installed Kernel Version ```find /boot/vmli*``` ```uname -r ```
+### 2. List all available kernels: ```dpkg --list | grep linux-image```    
 Correct Kernel needed is specified in the CUDA Library Toolkit Documentation Table   
    ![](docs/cuda_kernel.png)  
 
 ```
 sudo apt install linux-image-5.8.0-50-generic linux-hwe-5.8-source-5.8.0 linux-modules-5.8.0-50-generic linux-hwe-5.8-tools-5.8.0-50 linux-modules-extra-5.8.0-50-generic linux-headers-generic-hwe-20.04
 ```   
-### Switch to the default monitor driver | `START` | `Additional drivers` | `Nouveau` (usually last one in list)  
+### 3. Switch to the default monitor driver 
+START (Windows Button) , search for  `Additional drivers`  
+Select `Nouveau` (usually last one in list)  
    
    ![](docs/display_driver.png)   
 
-### Uninstall all nvidia fun:
+### 4. Uninstall all nvidia fun:
 ```
 sudo apt-get purge --auto-remove nvidia-cuda-toolkit
 sudo apt-get purge *nvidia*
@@ -31,11 +33,10 @@ Magic command that will add nouveau to the default drivers loaded. Not sure if t
 echo 'nouveau' | sudo tee -a /etc/modules
 ```
 
-### Restart your computer! ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) WARNING if you skip this step it failed for me!
+### 5. Restart your computer! ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) WARNING if you skip this step it failed for me!
 
-### For me using the EGPU worked with `11.3.1` and `Ubuntu 20.04` `Kernel 5.8.0-50` and the `PyTorch 1.10`
-Install it as follows:  
-[https://developer.nvidia.com/cuda-11-3-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local]()
+### 6. For me using the EGPU worked with `11.3.1` and `Ubuntu 20.04` `Kernel 5.8.0-50` and the `PyTorch 1.10`
+Install it as follows ([Insturctions](https://developer.nvidia.com/cuda-11-3-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)):
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -47,10 +48,10 @@ sudo apt-get -y install cuda
 ```
    This will install CUDA and the correct GPU driver.  
    
-### Plug in the EGPU
-### START (Windows Button), Search for `Thunderbold Manage Thunderbold Devices` - Make sure devices are connected
-### Follow EGPU switcher instructions [https://github.com/hertg/egpu-switcher]()  
+### 7. Plug in the EGPU
+### 8. START (Windows Button), search for `Thunderbold Manage Thunderbold Devices` - Make sure devices are connected
+### 9. Follow EGPU switcher instructions [https://github.com/hertg/egpu-switcher]()  
    For me, it helped to specify the internal and external preferred GPU. 
-### Reboot and enjoy  
+### 10. Reboot and enjoy  
 
   ![](docs/final_result.png)

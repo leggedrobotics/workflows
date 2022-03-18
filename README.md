@@ -13,10 +13,10 @@
   - [GitHub](./access/github): Access Management, Groups, Actions, LSF, Secrets
   - [Cluster](./access/cluster): Access Management
 - Workflows
-  - [Singularity-Cluster](./workflows/singularity-cluster): 
-  - [Raisim-Cluster](./workflows/raisim-cluster):
-  - [Python-Cluster](./workflows/python-cluster):
-  - [eGPU](./workflows/egpu):
+  - [Singularity-Cluster](./workflows/singularity-cluster)
+  - [Raisim-Cluster](./workflows/raisim-cluster)
+  - [Python-Cluster](./workflows/python-cluster)
+  - [eGPU](./workflows/egpu)
 
 ## Contact
 

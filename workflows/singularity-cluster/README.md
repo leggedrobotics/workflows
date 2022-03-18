@@ -9,7 +9,7 @@
 ## Workflow
 
 ### 1. Install go on your local machine ( [Instructions](https://sylabs.io/guides/3.0/user-guide/installation.html) )
-### 2. Install singularity version 3.7.4 (current cluster singularity version, export correct version) ( [Instructions](https://sylabs.io/guides/3.0/user-guide/installation.html) )
+### 2. Install singularity version 3.7.4 (current cluster singularity version) ( [Instructions](https://sylabs.io/guides/3.0/user-guide/installation.html) )
 ### 3. Create your docker container that meets your purposes.  
 - You will most likely create a Dockerfile based on the Nvidia Docker container with GPU support.
 - Follow the installation guide here if you want to use the Nvidia Docker ( [Instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) )  
