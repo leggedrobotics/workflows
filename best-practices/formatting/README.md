@@ -1,11 +1,11 @@
 # Formatting 
-Auto formatting reduces the burden to clean up code and increases readability.
-We recommend here formatters available for development with VSCode.
+Auto formatting reduces the burden to clean up code and increases readability.  
+We recommend here formatters available for development with VSCode.  
 
 
 ## Python - Black
-We use black formatter for formatting the python code. 
-To run the formatter:
+We use black formatter for formatting the python code.  
+To run the formatter:  
 
 ```shell
 # for formatting
@@ -13,7 +13,7 @@ pip3 install black
 black --line-length 120 .
 ```
 
-Get where black is installed:
+Get where black is installed:  
 ```shell
 python3 -c 'import black; from pathlib import Path; print(Path(black.__file__).parent)'
 ```
@@ -25,10 +25,10 @@ In VSCode `CTRL`+`Shift`+`P` edit your `settings.json`:
 ``` 
 
 ## CPP - Clang-Format
-Install the `Clang-Format` Extension in VSCode.
-Use the Google Formatting option.
-Example `.clang-format` file is provided at `best-practices/formatting/.clang-format`.
-Set as default in `settings.json`:
+Install `Clang-Format` Extension in VSCode.  
+Use the Google Formatting option.  
+Example `.clang-format` file is provided at `best-practices/formatting/.clang-format`.  
+Set as default in `settings.json`:  
 ```json
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
@@ -36,7 +36,7 @@ Set as default in `settings.json`:
 ```
 
 ## XML
-Standard XML Language Support by Red Hat Extension in VSCode.  
+Standard `XML Language Support` by Red Hat Extension in VSCode.  
 Set as default in `settings.json`:
 ```json
     "[xml]": {
@@ -48,10 +48,17 @@ Set as default in `settings.json`:
 ```
 
 ## YAML 
-Standard YAML Language Support by Red Hat Extension in VSCode.
+Install `Standard YAML Language Support` by Red Hat Extension in VSCode.  
 Set as default in `settings.json`:  
 ```json
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     }
+```
+
+## CMakeLists
+Install `cmake-format` Extension in VSCode.  
+Install using pip:
+```shell
+pip3 install cmake_format
 ```
