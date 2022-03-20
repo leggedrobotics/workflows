@@ -50,7 +50,7 @@ It`s preferable to transfer 1 big tarred file than a lot of individual small fil
 Tar all data within a folder without compression:
 It`s recommended to perform the tar process on your local machine and then transfer the .tar to the cluster.
 ```
-tar -cvf $HOME/some_folder $HOME/some_folder.sif
+tar -cvf $HOME/some_folder.tar $HOME/some_folder
 ```
 When you submit your run script copy and extract the data to the local SSD on the compute node: 
 ```
