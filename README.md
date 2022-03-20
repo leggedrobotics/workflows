@@ -7,6 +7,7 @@
   - [CPP](./best-practices/cpp): Coding Style, Tools, Tipps & Tricks
   - [Python](./best-practices/python): Coding Style, Tools, Tipps & Tricks
   - [Cluster](./best-practices/cluster): Jobs, Development, GPUs, Debugging, Storage, Resources
+  - [Formatting](./best-practices/formatting): Code Formatting Tools and Standards
 - Access
   - [BitBucket](./access/bitbucket): Access Management
   - [DockerHub](./access/dockerhub): Access Management
