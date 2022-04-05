@@ -39,7 +39,7 @@ We recommend lower_case seperated by underscores:
 | `Merge`   | Use if preserving the complete history and chronological order of contributions is important           |
 | `Rebase`  | Apply always when the `Merge` Strategy Requirements are not fullfiled to keep the `main` branch clean. |
 
-[https://betterprogramming.pub/differences-between-git-merge-and-rebase-and-why-you-should-care-ae41d96237b6#:~:text=Reading%20the%20official%20Git%20manual,it%20happened%2C%20rebase%20rewrites%20it%20.](Read more here.)
+[Read more here.](https://betterprogramming.pub/differences-between-git-merge-and-rebase-and-why-you-should-care-ae41d96237b6#:~:text=Reading%20the%20official%20Git%20manual,it%20happened%2C%20rebase%20rewrites%20it%20)
 
 
 ## Single Main Developer
