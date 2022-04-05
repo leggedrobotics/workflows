@@ -8,6 +8,7 @@
   - [Python](./best-practices/python): Coding Style, Tools, Tipps & Tricks
   - [Cluster](./best-practices/cluster): Jobs, Development, GPUs, Debugging, Storage, Resources
   - [Formatting](./best-practices/formatting): Code Formatting Tools and Standards
+  - [Collaboration](./best-practices/collaboration): Collaboration using git
 - Access
   - [BitBucket](./access/bitbucket): Access Management
   - [DockerHub](./access/dockerhub): Access Management
@@ -18,6 +19,11 @@
   - [Raisim-Cluster](./workflows/raisim-cluster)
   - [Python-Cluster](./workflows/python-cluster)
   - [eGPU](./workflows/egpu)
+
+## Questions
+So if something is not working please open up an issue on GitHub.
+If you found something to be unclear or wrong please create a new Branch following the Best Practices on [Collaborating](./best-practices/collaboration).
+
 
 ## Contact
 
