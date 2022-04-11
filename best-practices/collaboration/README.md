@@ -48,13 +48,13 @@ Recommended workflows:
 - Regulary merge your code into `master`. 
 - [Optionally]: Create a `pull request` with your self as the reviewer and check everything in the `dif`-view before merging.
 
-## Two Main Developer
+## Two Main Developers
 - Follow Single Main Developer guide.
 - Before merging a brach into `main` rebase to the latest main release.
-- Each `pull request` has to main has to be aproven by the other developer.
+- Each `pull request` to main has to be aproven by the other developer.
 
-## Multiple Developer
+## Multiple Developers
 - Add CI/CD Integration, GitHub Actions are handy
 - Automated code-formatting and checking 
-- Automated united testing
+- Automated unit testing
 
