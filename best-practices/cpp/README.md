@@ -8,7 +8,7 @@ Consider using the [Anybotics](https://anybotics.github.io/styleguide/cppguide.h
 
 ## ROS integration
 
-ROS should be used as the middle layer for nodes to communicate. For your main code, create standalone libraries and provide a ROS-interface. Don’t put ROS dependencies in the core of your algorithm! (From here)
+ROS should be used as the middle layer for nodes to communicate. For your main code, create standalone libraries and provide a ROS-interface. Don’t put ROS dependencies in the core of your algorithm!
 
 A good example on how to properly do this is the grid_map package from Anybotics: [grid_map](https://github.com/ANYbotics/grid_map).
 
@@ -68,6 +68,9 @@ public:
 private:
   std::vector<Submap> submaps_;
 }
+
+//client code
+  
 SubmapCollection sc;
 int theRightSubmapIdx;
 // do stuff  
@@ -99,6 +102,8 @@ public:
 private:
   std::vector<Submap> submaps_;
 }
+
+//client code
   
 SubmapCollection sc;
 int theRightSubmapIndex;
@@ -114,7 +119,7 @@ sc.eraseSubmap(theRightSubmapIndex);
 </tr>
 </table>
 
-Assume that erasing submaps can happen in many places in the client code. In case we have to for some reason use `std::vector<std::shared_ptr<Submap>>` inside `SubmapCollection`? What if we have to use `std::list`? In the first version, lot of  clinet code will break since we have exposed implementation details in the public interface.
+Assume that erasing submaps can happen in many places in the client code. What happens if we for some reason have to use `std::vector<std::shared_ptr<Submap>>` inside `SubmapCollection`? What if we have to use `std::list`? In the first version, lot of  clinet code will break since we have exposed implementation details in the public interface.
 
 ### Idioms
 
