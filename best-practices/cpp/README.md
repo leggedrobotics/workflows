@@ -1,6 +1,6 @@
-# Best practices cpp (WORK IN PROGRESS)
+# Best practices cpp
 
-This package containts a few practices considered good when developing in cpp. 
+This package containts a hints and examples for (more) effective cpp development. 
 
 ## Coding Style
 
@@ -38,6 +38,84 @@ familiarize yourself with those principles. You can find a quick overview with s
  
  In addition consider reading a book about design patterns which basically show you how to apply these 5 principles in various situations. A decent, easy read on design patterns is *Head First Design Patterns*. It is written for Java, yes, however the principles are language agnostic. [link](https://www.amazon.com/Head-First-Design-Patterns-Brain-Friendly/dp/0596007124)
  
+### Example (encapsluation and dependency inversion principle)
+
+Consider a mapping system with a `Submap` class,
+
+```cpp
+class Submap{
+public:
+  void doSomething();   
+}
+```
+
+and two versions of `SubmapCollection` class, together with a client code that wants to erase a submap that 
+is the the correct one (according to some criteria):
+
+<table>
+<tr>
+<td> First version </td> <td> Second version </td>
+</tr>
+<tr>
+<td>
+
+```cpp
+class SubmapCollection{
+public:
+  std::vector<Submap> &getSubmaps() { 
+    return submaps_; 
+  }
+private:
+  std::vector<Submap> submaps_;
+}
+SubmapCollection sc;
+int theRightSubmapIdx;
+// do stuff  
+for(int i = 0; i < sc.getSubmaps().size(); ++i){
+  // calculate theRightSubmapIndex
+  sc.getSubmaps().at(i).doSomething();                   
+}
+auto startIt = sc.getSubmaps().begin();
+sc.getSubmaps().erase(startIt + theRightSubmapIdx);
+                                                        
+  
+```
+
+</td>
+<td>
+    
+```cpp
+class SubmapCollection{
+public:
+  Submap &getSubmap(int submapId) { 
+    return submaps_.at(submapId); 
+  }
+  void eraseSubmap(int id) {
+    submaps_.erase(submaps_.begin() + id);
+  }
+  int size() const {
+    return submaps_.size();
+  }
+private:
+  std::vector<Submap> submaps_;
+}
+  
+SubmapCollection sc;
+int theRightSubmapIndex;
+// do stuff  
+for(int i = 0; i < sc.size(); ++i){
+  // calculate theRightSubmapIndex
+  sc.getSubmap(i).doSomething();
+}
+sc.eraseSubmap(theRightSubmapIndex); 
+  
+```
+</td>
+</tr>
+</table>
+
+Assume that erasing submaps can happen in many places in the client code. In case we have to for some reason use `std::vector<std::shared_ptr<Submap>>` inside `SubmapCollection`? What if we have to use `std::list`? In the first version, lot of  clinet code will break since we have exposed implementation details in the public interface.
+
 ### Idioms
 
 There are multiple useful idioms that you can find, however one that is particulary useful in terms of breaking dependencies is the PIMPL idiom.
@@ -50,21 +128,35 @@ You can find a brief explanation of what it does [here](https://cpppatterns.com/
 ### Naming
 The code should convey the intent of the programmer. The best (and the easiest) way of writing expressive code starts with good naming. Choose names for you variables/functions that describe what the variable/function is doing. The price we have to pay is that our names will become slightly longer, yes, we will spend more time typing. However consider how much time you will save yourself if you have to look at the same code after a few months.
 
-Consider this example:
-
+Consider these two versions:
+  
+<table>
+<tr>
+<td> First version </td> <td> Second version </td>
+</tr>
+<tr>
+<td>
+  
 ```cpp
 if( i >=0 && i < data.rows()){
     // do stuff
 }
 ```
-vs
 
+</td>
+<td>
+  
 ```cpp
 const bool isIndexValid =  i >=0 && i < data.rows()
 if(isIndexValid){
     // do stuff
 }
-```
+``` 
+
+</td>
+</tr>
+</table>
+
 Which version do you find easier to understand?
 
 In this exapmle we used an extra variable to better convey our intention. 
@@ -75,8 +167,15 @@ Same as the classes, your functions should do one thing. A well written function
 
 Structuring code into funtions allows you to improve resusability and avoid code copy-pasting. Even if you will not need to re-use the functinality by separating a chunk of code in a function, you can still (vastly) improve the readability of your code.
 
-Consider a following example:
+Consider the following example:
 
+<table>
+<tr>
+<td> First version </td> <td> Second version </td>
+</tr>
+<tr>
+<td>
+  
 ```cpp
 int nElements = data.size();
 for (int i = 0; i < nElements; ++i){
@@ -92,8 +191,9 @@ for (int i = 0; i < nElements; ++i){
 }
 ```
 
-vs 
-
+</td>
+<td>
+  
 ```cpp
 
 auto removeElementByIndex = [&](int idx) -> void {
@@ -118,9 +218,15 @@ while(getIndexOfFirstDuplicateElement(&duplicateIdx)){
 }
 ```
 
+</td>
+</tr>
+</table>  
+
 Which code block was easier to understand?  
 
 As you might have guessed both variants remove the duplicate elements from a vector. Here we used lambda functions to convey our intent better, however one could also use regular functions or class methods.
+  
+Yes, but I could just add a comment, why bother with functions?! Indeed, however, what would you find easier to debug? A big function with a comment stating what it does or a bunch of smaller functions with meaningful names and no comments? What happens if you update the code, but forget to update the comment?
 
 A good book on how to write expressive code is *Clean Code: A Handbook of Agile Software Craftsmanship* [link](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882). This book explains well how to name your functions/variables.  
 
@@ -135,22 +241,64 @@ If you can, you should use STL (Standard Template Library).
 3. STL can help you write expressive code. Take a look at the example below:
 
 STL example:
-
+  
+<table>
+<tr>
+<td> First version </td> <td> Second version </td>
+</tr>
+<tr>
+<td>
+  
 ```cpp
-double minElement = 1e8; // oops what will this snippet do if data containts numbers > 1e8 ???
+double minElement = 1e8; 
+// oops
+// what will this snippet do 
+// if data containts some numbers > 1e8 ???
 for(int i=0; i < data.size(); ++i){
   if (minElement < data.at(i)){
     minElement = data.at(i);
   }
 }
 ```
-vs
 
+</td>
+<td>
+  
 ```cpp
 double minElement = *std::min_element(data.begin(), data.end());
 ```
 
+</td>
+</tr>
+</table>
+
 Which snippet took less time to read and understand?  
 
 Note that STL has many functinos implemented and you can often use it to easily convey your intent. A great resource for exploring various usages of STL is (again) the [fluentCPP](https://www.fluentcpp.com/STL/) blog.
+  
+ ## Other resources
+ 
+**Online**  
+  
+[fluentCPP](https://www.fluentcpp.com/STL/) - Great blog that covers a wide variety of topics. Features short posts with exmaples that take only a few minutes to understand (daily cpp). You will definitely impress your friends at the bar with your vast knowledge.
+  
+[modernesCPP](https://www.modernescpp.com/index.php/modern-c) - Technical blog that covers some advanced concepts. Lots of resources on multithreading and modern cpp (C++17, C++20).
+  
+[optimizatinoDiary](https://github.com/facontidavide/CPP_Optimizations_Diary) - Funny blog that covers simple cpp optimizations. Mostly features stuff like: I change 3 lines of code and it runs 2x faster.
+  
+**Books**
+
+*Clean Code: A Handbook of Agile Software Craftsmanship* [link](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882). Grat book with exmaples on how to name your variables, functinos and how to structure your code. If you can read only one, pick this one.
+  
+*Clean Architecture: A Craftsman's Guide to Software Structure and Design* [link](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) - A comprehensive book on how to approach software design on a larger scale with exmaples and real-life stories.
+ 
+*Head First Design Patterns*. [link](https://www.amazon.com/Head-First-Design-Patterns-Brain-Friendly/dp/0596007124) - Design patterns and how do they adhere to SOLID design principles. Comic style book. Easy to read.
+  
+*Effective C++: 55 Specific Ways to Improve Your Programs and Designs* [link](https://www.amazon.com/Effective-Specific-Improve-Programs-Designs/dp/0321334876) - Slightly older book that covers a wide variety of topics from memory management to templates and generic programming. It's divided into 55 easy-to-read items so you can skip what is not relevant for you.
+  
+*Effective Modern C++: 42 Specific Ways to Improve Your Use of C++11 and C++14* [link] (https://www.amazon.com/Effective-Modern-Specific-Ways-Improve/dp/1491903996) - Same style as *Effective C++* but focuses on C++11 and C++14. Probably better to read the *Effective C++ first.
+  
+
+  
+
 
