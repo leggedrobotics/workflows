@@ -1,8 +1,10 @@
-# Best practices cpp
+# Best practices cpp (WORK IN PROGRESS)
 
 This package containts a few practices considered good when developing in cpp. 
 
+## Coding Style
 
+Consider using the [Anybotics](https://anybotics.github.io/styleguide/cppguide.html) cpp coding style guide. It has been adopted from Google coding style guide. Google coding style guide has been crafted by expert software engineers dealing with large codebases over extended periods of time. Anybotics coding style guide adds a few modificatinos that make it more suitable for robotics and usage with ROS. 
 
 ## ROS integration
 
@@ -18,7 +20,7 @@ familiarize yourself with those principles. You can ind a quick overview with ex
 
 1. **The single-responsibility principle**  
   "There should never be more than one reason for a class to change."
-   I.e. every class should have only one responsibility. [more](https://www.cs.utexas.edu/users/downing/papers/SRP-1996.pdf)
+   I.e. every class should have only one responsibility. This principle also applies to functions (non class members) [more](https://www.cs.utexas.edu/users/downing/papers/SRP-1996.pdf)
 2. **The open–closed principle** 
    "Software entities should be open for extension, but closed for modification."
    I.e. If you want do add a new feature you should be able to do so without having to change the existing code (ideally). [more](https://courses.cs.duke.edu/fall07/cps108/papers/ocp.pdf)
@@ -31,5 +33,56 @@ familiarize yourself with those principles. You can ind a quick overview with ex
 5. **The dependency inversion principle**  
    "Depend upon abstractions, not concretions." 
    I.e. you should not expose the implementation details of your class in the public interface. [more](https://www.labri.fr/perso/clement/enseignements/ao/DIP.pdf)
+   
+ A decent book that shows how some of these princliples can be applied is *Clean Architecture: A Craftsman's Guide to Software Structure and Design* [link](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
+ 
+ In addition consider reading a book about design patterns which basically show you how to apply these 5 principles in various situations. A decent, easy read on design patterns is *Head First Design Patterns*. It is written for Java, yes, however the principles are language agnostic. [link](https://www.amazon.com/Head-First-Design-Patterns-Brain-Friendly/dp/0596007124)
 
+
+## Writing expressive code
+
+The code should convey the intent of the programmer. The best (and the easiest) way of writing expressive code starts with good naming. Choose names for you variables that describe what the variable/function is doing. The price we have to pay is that our names will become slightly longer, yes we will spend more time typing, however consider how much time you will save yourself if you have to look at the same code after a few months.
+
+Consider this example:
+
+```cpp
+if( i >=0 && i < data.rows()){
+    // do stuff
+}
+```
+vs
+
+```cpp
+const bool isIndexValid =  i >=0 && i < data.rows()
+if(isIndexValid){
+    // do stuff
+}
+```
+Which version do you find easier to understand?
+
+In this exapmle we used an extra variable to better convey our intention. 
+
+
+
+A good book on how to write expressive code is *Clean Code: A Handbook of Agile Software Craftsmanship* [link](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882).
+
+## Using STL
+
+Another example:
+
+```cpp
+double minElement = 1e8;
+for(int i=0; i < data.size(); ++i){
+  if (minElement < data.at(i)){
+    mineElement = data.at(i);
+  }
+}
+```
+vs
+
+```cpp
+double minElement = *std::min_element(data.begin(), data.end());
+```
+
+In the second example we use a function that tells the reader what is it doing thus saving you the time you'd have to spend to read all the lines of code and understand the functionality. Note that STL has many functinos implemented and you can often use it to easily convey your intent.
 
