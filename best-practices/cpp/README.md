@@ -1,10 +1,12 @@
 # Best practices cpp
 
-This package containts a hints and examples for (more) effective cpp development. 
+This package containts a hints and examples for (more) effective cpp development.
 
 ## Coding Style
 
-Consider using the [Anybotics](https://anybotics.github.io/styleguide/cppguide.html) cpp coding style guide. It has been adopted from Google coding style guide. Google coding style guide has been crafted by expert software engineers dealing with large codebases over extended periods of time. Anybotics coding style guide adds a few modificatinos that make it more suitable for robotics and usage with ROS. 
+Consider using the [Anybotics](https://anybotics.github.io/styleguide/cppguide.html) cpp coding style guide. It has been adopted from Google coding style guide. Google coding style guide has been crafted by expert software engineers dealing with large codebases over extended periods of time. Anybotics coding style guide adds a few modifications that make it more suitable for robotics and usage with ROS.
+
+The utility package [cmake_clang_tools](https://github.com/ANYbotics/cmake_clang_tools), available online, can be used to automatically run clang-tidy and clang-format on your code and helps you better adhere to the above mentioned guidelines.
 
 ## ROS integration
 
