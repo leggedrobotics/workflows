@@ -273,7 +273,7 @@ Note that STL has many functions implemented and you can often use it to easily 
 
  ## Optimizing code
   
-In general, it is a good idea to first make the code correct and then worry about the speed. Maybe it's fast enough; if it is, you're done and you save yourself valuable time that would have been spent optimizing otherwise. Note that optimizing the code often reduces readability and maintainability so you should have a good reason for doing so. This [blog](https://github.com/facontidavide/CPP_Optimizations_Diary) deals specifically with optimizations in cpp. Can you guess what is the No.1 rule that they list? 
+In general, it is a good idea to first make the code correct and then worry about the speed. Maybe it's fast enough; if it is, you're done and you save yourself valuable time that would have been spent optimizing otherwise. Note that optimizing the code often reduces readability and maintainability so you should have a good reason for doing so. This [blog](https://github.com/facontidavide/CPP_Optimizations_Diary) deals specifically with optimizations in cpp. [cppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#S-performance) also has a section on code optimization. Can you guess what is the No.1 rule that they both list? 
   
  ## Other resources
  
@@ -284,6 +284,8 @@ In general, it is a good idea to first make the code correct and then worry abou
 [modernesCPP](https://www.modernescpp.com/index.php/modern-c) - Technical blog that covers some advanced concepts. Lots of resources on multithreading and modern cpp (C++17, C++20).
   
 [optimizatinoDiary](https://github.com/facontidavide/CPP_Optimizations_Diary) - Funny blog that covers simple cpp optimizations. Mostly features stuff like: I change 3 lines of code and it runs 2x faster.
+  
+[cppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html) - Cpp tips and tricks from the inventor of cpp Bjarne Stroustrup and Herb  Sutter, one of the most prominent cpp experts. They cover everything with motivation and examples as well.
   
 **Books**
 
