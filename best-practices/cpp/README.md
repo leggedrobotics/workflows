@@ -285,7 +285,7 @@ In general, it is a good idea to first make the code correct and then worry abou
   
 [optimizatinoDiary](https://github.com/facontidavide/CPP_Optimizations_Diary) - Funny blog that covers simple cpp optimizations. Mostly features stuff like: I change 3 lines of code and it runs 2x faster.
   
-[cppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html) Cpp tips and tricks from the inventor of cpp Bjarne Stroustrup and Herb  Sutter, one of the most prominent cpp experts. They cover everything with motivation and examples as well.
+[cppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html) - Cpp tips and tricks from the inventor of cpp Bjarne Stroustrup and Herb  Sutter, one of the most prominent cpp experts. They cover everything with motivation and examples as well.
   
 **Books**
 
