@@ -3,7 +3,7 @@
 **Collection of workflows, best-practices and general recommendations**
 ## Index
 
-| <div style="width:140px">Best Practices<div>    | <div style="width:450px">  <div>                       |
+| &nbsp; &nbsp; Best Practices &nbsp;  | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 | ----------------------------------------------- | ------------------------------------------------------ |
 | [CPP](./best-practices/cpp)                     | Coding Style, Tools, Tipps & Tricks                    |
 | [Python](./best-practices/python)               | Coding Style, Tools, Tipps & Tricks                    |
@@ -12,7 +12,7 @@
 | [Collaboration](./best-practices/collaboration) | Collaboration using git                                |
 
 
-| <div style="width:140px">Access <div> | <div style="width:450px">  <div>                 |
+| &nbsp; &nbsp; &nbsp; &nbsp; Access &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 | ------------------------------------- | ------------------------------------------------ |
 | [BitBucket](./access/bitbucket)       | Access Management                                |
 | [DockerHub](./access/dockerhub)       | Access Management                                |
@@ -20,7 +20,7 @@
 | [Cluster](./access/cluster)           | Access Management                                |
 
 
-| <div style="width:140px">Workflows  <div>              | <div style="width:450px">  <div> |
+| &nbsp; &nbsp; Workflows &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 | ------------------------------------------------------ | -------------------------------- |
 | [Singularity-Cluster](./workflows/singularity-cluster) | Using singularity on the cluster |
 | [Raisim-Cluster](./workflows/raisim-cluster)           | Running raisim on the cluster    |
