@@ -17,7 +17,7 @@ If you have never used git please read the following:
 
 ## Conventions:
 ### Repository Naming:
-We recommend lower_case seperated by underscores:   
+We recommend lower_case separated by underscores:   
 
 | Good: | `anymal_c_rsl`                                  |
 | ----- | ----------------------------------------------- |
@@ -37,7 +37,7 @@ We recommend lower_case seperated by underscores:
 | Strategy: | Description:                                                                                           |
 | --------- | ------------------------------------------------------------------------------------------------------ |
 | `Merge`   | Use if preserving the complete history and chronological order of contributions is important           |
-| `Rebase`  | Apply always when the `Merge` Strategy Requirements are not fullfiled to keep the `main` branch clean. |
+| `Rebase`  | Apply always when the `Merge` Strategy Requirements are not fulfilled to keep the `main` branch clean. |
 
 [Read more here.](https://betterprogramming.pub/differences-between-git-merge-and-rebase-and-why-you-should-care-ae41d96237b6#:~:text=Reading%20the%20official%20Git%20manual,it%20happened%2C%20rebase%20rewrites%20it%20)
 
@@ -45,13 +45,13 @@ We recommend lower_case seperated by underscores:
 ## Single Main Developer
 Recommended workflows: 
 - Always work on `dev` `fix` or `feature`.
-- Regulary merge your code into `master`. 
-- [Optionally]: Create a `pull request` with your self as the reviewer and check everything in the `dif`-view before merging.
+- Regularly merge your code into `master`. 
+- [Optionally]: Create a `pull request` with yourself as the reviewer and check everything in the `dif`-view before merging.
 
 ## Two Main Developers
 - Follow Single Main Developer guide.
-- Before merging a brach into `main` rebase to the latest main release.
-- Each `pull request` to main has to be aproven by the other developer.
+- Before merging a branch into `main` rebase to the latest main release.
+- Each `pull request` to main has to be approved by the other developer.
 
 ## Multiple Developers
 - Add CI/CD Integration, GitHub Actions are handy
