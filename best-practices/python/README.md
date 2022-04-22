@@ -68,17 +68,6 @@ VSCode Debugger is great
 | Virual Env          |                                                                                      |                                                                               |
 
 ## PyTorch
-`PytorchLightning`
-Pros:
-- Great for all supervised learning tasks
-- Great if problem formulated in Training, Validation, Test datasets
-- Multi-GPU
-- 16 Bit support
-- Reduces boiler plate code
-
-Cons:
-- For certain special cases restircts you
-
 ## Configuration Files
 
 

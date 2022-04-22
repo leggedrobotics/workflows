@@ -1,5 +1,5 @@
 # Official documentation:
-Read this at first very carefull:
+Read this very carefully:
 https://scicomp.ethz.ch/wiki/Getting_started_with_clusters
 
 Available software packages pre-installed
@@ -7,12 +7,12 @@ https://scicomp.ethz.ch/wiki/Euler_applications_and_libraries
 
 # Dont`s:
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Only log into the cluster using a terminal.  
-    Do not use VSCode otherwise your account will be banned. 
+    Do not use VSCode otherwise, your account will be banned. 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Schedule experiments only if you are sure your code runs.
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Make sure that all jobs jo schedule can be analyzed and outputs are saved correctly.
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) When searching for hyperparameters don`t do a lazy grid-search (be smart. alter one of the hyperparameters after another)
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) When searching for hyperparameters, don`t do a lazy grid-search (be smart. alter one of the hyperparameters after another)
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Only reserve the resources you need. Cores, Memory, Time, GPUs.
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Using more resources for a single run is often worse than running 2 jobs with half the resources (% of code fully parallizable).
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Using more resources for a single run is often worse than running 2 jobs with half the resources (% of code fully parallelizable).
 # Data management:
 First read the data management in the cluster documentation.
 
@@ -39,11 +39,11 @@ Use for datasets or maybe your experiment results.
 - `$TMPDIR`: Local scratch (on each compute node).  
 Needs to be reserved when submitting a job with `bsub`.   
 Provides SSD storage on the compute node itself.  
-Is extremely fast especially for a lot of file access (Not penetrating the cluster network).  
+Is extremely fast, especially for a lot of file access (Not penetrating the cluster network).  
 Therefore good for everything you need to often read and write.  
 Example ImageNet dataset with individual .pngs. Transfer to local scratch before starting the training.  
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) **WARNING**: All directories have file limits aswell!  
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) **WARNING**: All directories have file limits as well!  
 It`s preferable to transfer 1 big tarred file than a lot of individual small files. 
 
 ## Transfering data to local compute node:
@@ -70,7 +70,7 @@ Transfers all contents (`-r`) of your local machine Documents folder to your hom
 rsync -r -v --delete --exclude 'something/*' --exclude '__pycache__' --exclude '*.pyc' --exclude '*.ipynb' /home/username/Documents jonfrey@euler:/cluster/home/jonfrey/project
 ```
 Syncs all (`-r`) files in your Documents folder to your `home/project` directory on the cluster.  
-Deletes everything within your cluster `home/project` directory to match your Documents folder (`--delete`, be carefull to not delete important things on the cluster!).  
+Deletes everything within your cluster `home/project` directory to match your Documents folder (`--delete`, be careful to not delete important things on the cluster!).  
 Ignores everything in the `/home/username/Documents/something` folder and specific file endings. 
 
 # Modules:
@@ -133,11 +133,11 @@ lquota $HOME
 
 ### Interactive Debugging:
 
-To debug on the cluster and get your code running without scheduling for each trial a new job you can get a shell on at execution node:
+To debug on the cluster and get your code running without scheduling for each trial a new job you can get a shell on the execution node:
 ```
 bsub -Is ..specify other resources for the job.. bash
 ```
-Using [tmux](https://tmuxcheatsheet.com/) is even more convenient allows you to have multiple terminal windows on the same compute node. 
+Using [tmux](https://tmuxcheatsheet.com/) is even more convenient. It allows you to have multiple terminal windows on the same compute node. 
 ```
 module load tmux
 bsub -Is ..specify other resources for the job.. tmux
@@ -178,7 +178,3 @@ If you have a low `Resource usage` change your core usage or write more performa
 bbjobs JOB_ID
 ```
 
-### Shareholder information:
-```
-my_share_info
-```
