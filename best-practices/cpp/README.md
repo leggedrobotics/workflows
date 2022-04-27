@@ -13,9 +13,9 @@ No matter which coding style you choose, you should stick to it and be consisten
 ## Templates
 
 Further template files and instructions are provided for:
-- [Brahma ROS Workspace Template](./best-practices/cpp/brahma) 
-- [Automatic Code Coverage](./best-practices/cpp/code_coverage)
-- [Clion Project Template](./best-practices/cpp/clion_template_project) 
+- [Brahma ROS Workspace Template](./brahma) 
+- [Automatic Code Coverage](./code_coverage)
+- [Clion Project Template](./clion_template_project) 
 
 ## ROS Integration
 
