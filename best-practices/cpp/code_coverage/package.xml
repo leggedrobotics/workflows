@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>cmake_code_coverage</name>
+  <version>0.1.0</version>
+  <description>CMake helpers for lcov, gcov and genhtml.</description>
+  <license>Proprietary</license>
+
+  <maintainer email="ghottiger@anybotics.com">Gabriel Hottiger</maintainer>
+  <maintainer email="pleemann@anybotics.com">Philipp Leemann</maintainer>
+  <author>Lars Bilke</author>
+  <author email="ghottiger@anybotics.com">Gabriel Hottiger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_export_depend>lcov</buildtool_export_depend>
+
+</package>

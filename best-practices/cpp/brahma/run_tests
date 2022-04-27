@@ -1,0 +1,2 @@
+#!/bin/bash
+pytest-3 test/ --cov=brahma --cov-report html:test/coverage_report
