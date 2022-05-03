@@ -1,0 +1,13 @@
+.vscode
+*.neptune
+launch.json
+*.code-workspace
+
+results/* 
+
+
+# Compiled Python bytecode
+*.py[cod]
+**/__pycache__*
+# Log files
+*.log
