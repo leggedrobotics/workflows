@@ -1,23 +1,22 @@
-#  README
+#  Getting Started - Python for Learning
 
+# Prephase
 
-# Documentation
+## What it is: 
 This repository gives an example implementation of a deep learning project.   
 We try to apply to the best practices recommended for python.  
 Additionally, we integrate examples for logging, visualization, configuration loading, and hyperparameter search.
 
-## TODO:
-- Make the Cityscapes training run with the normal amount of classes (modify the network).
-- Check correct visualization.
-- Add eval and optuna hyperparameter search.
-- Add some helper scripts to deploy on the cluster 
-
-
+## What it is not: 
+This repository is not an example on how to train your semantic segmentation network.  
+It illustrates a fully minimalistic implementation. 
+The choosen hyperparameter for training the network and data augmentation are arbitrarily.  
 
 ## Table of Contents
-- [README](#readme)
-- [Documentation](#documentation)
-  - [TODO:](#todo)
+- [Getting Started - Python for Learning](#getting-started---python-for-learning)
+- [Prephase](#prephase)
+  - [What it is:](#what-it-is)
+  - [What it is not:](#what-it-is-not)
   - [Table of Contents](#table-of-contents)
 - [Paper and Video](#paper-and-video)
 - [Installation](#installation)
@@ -25,8 +24,10 @@ Additionally, we integrate examples for logging, visualization, configuration lo
     - [Define your Environment Name:](#define-your-environment-name)
     - [Define your Environment Variables:](#define-your-environment-variables)
     - [Downloading Example Dataset:](#downloading-example-dataset)
+- [TODO:](#todo)
 # Paper and Video
-This work is currently under review.
+
+It`s best practice to include the citation of your paper in your GitHub repository. 
 
 Jonas Frey, ...., .... , **Your Paper Title**”, in *IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2022.
 
@@ -53,11 +54,17 @@ pip3 install -e ./template_project_name
 ```
 
 Project Dependencies (automatically installed): 
-- Pytorch Lighting
-- OpenCV
-- Neptune-Client
-- Pillow
-- Matplotlib
+- opencv-python 4.5.5.62
+- neptune-client 0.14.0
+- matplotlib
+- numpy 1.22.3 
+- imageio
+- pillow 9.1.0
+- scikit-image 0.19.1
+- torchvision 0.11.2
+- pyyaml 6.0
+- pytorch-lightning 1.5.7
+- pytorch 1.10.1
 
 ### Setting up NeptuneAI:
 Append your `NEPTUNE_API_TOKEN` to your `~/.bashrc` at the bottom:
@@ -95,3 +102,12 @@ Expected Folder Structure:
         \gitFine_trainvaltest
         \leftImg8but
 ```
+
+# TODO:
+- Add eval and optuna hyperparameter search.
+- Add some helper scripts to deploy on the cluster 
+- Correct comments
+- Providing VSCode files
+- Code formatting
+- GitHub Actions
+- Conda Environment

@@ -10,6 +10,7 @@ def file_path(string):
     else:
         raise NotADirectoryError(string)
 
+
 def load_yaml(path):
     with open(path) as file:
         res = yaml.load(file, Loader=yaml.FullLoader)

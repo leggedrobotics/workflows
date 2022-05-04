@@ -6,7 +6,7 @@ from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 from pytorch_lightning.profiler import AdvancedProfiler
 
-import torch 
+import torch
 import argparse
 import os
 from pathlib import Path
@@ -15,6 +15,7 @@ import shutil
 import coloredlogs
 
 coloredlogs.install()
+
 
 def train(exp) -> float:
     seed_everything(42)
@@ -29,7 +30,7 @@ def train(exp) -> float:
     if exp["general"]["timestamp"]:
         timestamp = datetime.datetime.now().replace(microsecond=0).isoformat()
         model_path = os.path.join(env["results"], exp["general"]["name"])
-        p = model_path.rfind("/")+1
+        p = model_path.rfind("/") + 1
         model_path = model_path[:p] + str(timestamp) + "_" + model_path[p:]
     else:
         model_path = os.path.join(env["results"], exp["general"]["name"])
@@ -71,7 +72,7 @@ def train(exp) -> float:
         logger = get_tensorboard_logger(exp=exp, env=env, exp_p=exp_cfg_path, env_p=env_cfg_path)
     else:
         raise ValueError("Not defined logger type")
-    
+
     ####################################################################################################################
 
     ###########################################  CREAET NETWORK AND DATASET  ###########################################
@@ -126,9 +127,10 @@ def train(exp) -> float:
 
     return res
 
+
 if __name__ == "__main__":
     os.chdir(ROOT_DIR)
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--exp",

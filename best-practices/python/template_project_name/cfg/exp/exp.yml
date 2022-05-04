@@ -9,7 +9,9 @@ logger:
   neptune_project_name: "ASL/learn-voxel-nav"
 
 model:
-  type: "deeplabv3_mobilenet_v3_large" #"deeplabv3_resnet50"
+  pretrained: False
+  pretrained_backbone: False
+  num_classes: 33 # For Cityscapes Dataset
 
 visualizer:
   store: True
@@ -20,6 +22,7 @@ visualizer:
 
 data_module:
   batch_size: 2
+  num_workers: 10
 
 optimizer:
   lr: 0.00001

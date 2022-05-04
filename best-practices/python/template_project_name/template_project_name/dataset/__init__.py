@@ -1,1 +1,1 @@
-from .cityscapes_dataset import * 
+from .cityscapes_dataset import *
