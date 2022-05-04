@@ -111,3 +111,4 @@ Expected Folder Structure:
 - Code formatting
 - GitHub Actions
 - Conda Environment
+- PyTest full coverage
