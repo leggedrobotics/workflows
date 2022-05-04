@@ -63,7 +63,7 @@ def train(exp) -> float:
         ex = flatten_dict(exp)
         logger.log_hyperparams(ex)
         logger._run_instance["code"].upload_files(
-            [str(s) for s in Path(os.getcwd()).rglob("*.py") if str(p).find("vscode") == -1]
+            [str(s) for s in Path(os.getcwd()).rglob("*.py") if str(s).find("vscode") == -1]
         )
         logger._run_instance["cfg"].upload_files([exp_cfg_path, env_cfg_path])
 

@@ -6,7 +6,6 @@ import torch
 import torch.nn.functional as F
 import os 
 from torchmetrics import Accuracy
-
 class LightningNet(pl.LightningModule):
     def __init__(self, exp, env):
         super().__init__()
@@ -14,7 +13,11 @@ class LightningNet(pl.LightningModule):
         
         self._visualizer = Visualizer(os.path.join(exp["general"]["name"], "visu"), exp["visualizer"]["store"], self)
 
-        self._acc = {"val": Accuracy(), "test": Accuracy(), "train" : Accuracy()}
+        self.acc_val = Accuracy()
+        self.acc_test = Accuracy()
+        self.acc_train = Accuracy()
+        self._acc = {"val": self.acc_val, "test": self.acc_test, "train" : self.acc_train}
+        
         self._visu_count = {"val": 0, "test": 0, "train" : 0}
 
         self._exp = exp
@@ -25,30 +28,48 @@ class LightningNet(pl.LightningModule):
         return self._model(image)
 
     def visu(self, image, target, pred):
-        if self._visu_count[self._mode] < self.exp["visualizer"]["store_n"][self._mode]:
-            self._visualizer.plot_image(image, tag=f"{self._mode}_image")
-            self._visualizer.plot_segmentation(pred, tag=f"{self._mode}_pred")
-            self._visualizer.plot_segmentation(target, tag=f"{self._mode}_target")
-            self._visu_count[self._mode] += 1
-            
+        if not (self._visu_count[self._mode] < self._exp["visualizer"]["store_n"][self._mode]):
+            return
+        
+        for b in range( image.shape[0] ):
+            if self._visu_count[self._mode] < self._exp["visualizer"]["store_n"][self._mode]:
+                self._visualizer.plot_image(image[b], tag=f"{self._mode}_image")
+                self._visualizer.plot_segmentation(pred[b,0], tag=f"{self._mode}_pred")
+                self._visualizer.plot_segmentation(target[b], tag=f"{self._mode}_target")
+                self._visu_count[self._mode] += 1
+            else:
+                break
+
     # TRAINING
     def on_train_epoch_start(self):
         self._mode = "train"
         self._visu_count[self._mode] = 0
 
     def training_step(self, batch, batch_idx: int) -> torch.Tensor:
-        image, target = batch
+        image, target, ori_image = batch
         output = self(image)
+        pred = F.softmax( output["out"], dim=1 )
         
-        preds = output.argmax(dim=2, keepdim=True)
-        self._acc[self._mode](preds, target)
-        self.log(f'{self._mode}_acc_step', self.accuracy)
-        loss = F.mse_loss(output, target)
-        return loss
+        # Compute Accuracy and Log
+        m = target != -1
+        pred_argmax = torch.argmax(pred, dim=1, keepdim=True)
+        self._acc[self._mode](pred_argmax[m], target[m])
+        self.log(f'{self._mode}_acc_step', self._acc[self._mode])
+        
+        # Compute Loss
+        loss = F.cross_entropy( pred, target[:,0,:,:], ignore_index=-1, reduction="none" )
+        
+        # Visu
+        self.visu(ori_image, target[:,0,:,:], pred_argmax)
+        
+        # Loss loggging
+        self.log(f'{self._mode}_loss', loss.mean().item() )
+        
+        return loss.mean()
     
     def training_epoch_end(self, outputs):
         # log epoch metric
-        self.log(f'{self._mode}_acc_epoch', self.acc[self._mode])
+        self.log(f'{self._mode}_acc_epoch', self._acc[self._mode])
 
     # VALIDATION
     def on_validation_epoch_start(self):

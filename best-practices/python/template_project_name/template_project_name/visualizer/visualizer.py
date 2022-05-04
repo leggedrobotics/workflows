@@ -48,8 +48,9 @@ def image_functionality(func):
     """
 
     def wrap(*args, **kwargs):
-        log *= not kwargs.get("not_log", False)
-        if log:
+        img = func(*args, **kwargs)
+        
+        if not kwargs.get("not_log", False):
             log_exp = args[0]._pl_model.logger is not None
             tag = kwargs.get("tag", "tag_not_defined")
 
@@ -96,11 +97,11 @@ def image_functionality(func):
 
 
 class Visualizer:
-    def __init__(self, p_visu, cfg_visu, pl_model, epoch=0, num_classes=22):
+    def __init__(self, p_visu, store, pl_model, epoch=0, num_classes=22):
         self._p_visu = p_visu
         self._pl_model = pl_model
         self._epoch = epoch
-        self._store = cfg_visu["store"]
+        self._store = store
 
         if not os.path.exists(self._p_visu):
             os.makedirs(self._p_visu)

@@ -1,36 +1,43 @@
 #  README
 
-Training a sparse 3D neural network to estimate traversability for a legged robot based on a 3D occupancy map
-![](docs/natural_env.jpg)
 
 # Documentation
-This repository includes the terrain generation and sparse 3D neural network learning code.  
-The traversability collection code will be open sourced in the near furture.  
-The ROS code is available here: [https://github.com/leggedrobotics/lvn_utils](https://github.com/leggedrobotics/lvn_utils)  
+This repository gives an example implementation of a deep learning project.   
+We try to apply to the best practices recommended for python.  
+Additionally, we integrate examples for logging, visualization, configuration loading, and hyperparameter search.
+
+## TODO:
+- Make the Cityscapes training run with the normal amount of classes (modify the network).
+- Check correct visualization.
+- Add eval and optuna hyperparameter search.
+- Add some helper scripts to deploy on the cluster 
+
+
+
 ## Table of Contents
 - [README](#readme)
 - [Documentation](#documentation)
+  - [TODO:](#todo)
   - [Table of Contents](#table-of-contents)
 - [Paper and Video](#paper-and-video)
-- [Performance](#performance)
 - [Installation](#installation)
+    - [Setting up NeptuneAI:](#setting-up-neptuneai)
+    - [Define your Environment Name:](#define-your-environment-name)
+    - [Define your Environment Variables:](#define-your-environment-variables)
+    - [Downloading Example Dataset:](#downloading-example-dataset)
 # Paper and Video
 This work is currently under review.
 
-Jonas Frey, David Hoeller, Shehryar Khattak, Marco Hutter, “**Locomotion Policy Guided Traversability Learning using Volumetric
-Representations of Complex Environments**”, in *IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2022.
+Jonas Frey, ...., .... , **Your Paper Title**”, in *IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2022.
 
 ```latex
 @inproceedings{frey2022traversability,
-  author={Frey, Jonas and Hoeller, David and Khattak, Shehryar and Marco, Hutter},
+  author={Jonas Frey},
   journal={under review: IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  title={Locomotion Policy Guided Traversability Learning using Volumetric
-Representations of Complex Environments},
+  title={Your Paper Title},
   year={2022}
 }
 ```
-# Performance
-
 # Installation
 The code was tested on:  
 `Ubuntu 20.04`, `Nvidia Driver Version: 470.82.01`, `CUDA Version: 11.4 and 11.3`, `GPUs: GTX1080TI and RTX3090 and RTX2080TI`   
@@ -52,8 +59,39 @@ Project Dependencies (automatically installed):
 - Pillow
 - Matplotlib
 
-Setting up NeptuneAI
+### Setting up NeptuneAI:
+Append your `NEPTUNE_API_TOKEN` to your `~/.bashrc` at the bottom:
+```
+export NEPTUNE_API_TOKEN="something"
+```
+### Define your Environment Name:
+The global variable `$ENV_WORKSTATION_NAME` is used to load the correct configuration file, which should include all global paths which are system dependent. 
 
-Setting Identifier for Global Configuration File
+Append to your `~/.bashrc` at the bottom:
+```
+export ENV_WORKSTATION_NAME="some_name"
+```
 
-Downloading Example Dataset
+### Define your Environment Variables:
+Create an environment configuration file `cfg/env/some_name.yml`:
+```
+results: results
+cityscapes_root: /cluster/work/rsl/Cityscapes
+```
+Current demo-version only expects the global path to the Cityscapes dataset and the results directory.  
+All paths can be either provided relative to this repository or as global paths.  
+
+The current experiments logging output will be stored in the folder `template_project_name/results/`.
+
+
+
+### Downloading Example Dataset:
+Ask for the GoogleDrive link to Download the Cityscapes dataset fork or download directly from https://www.cityscapes-dataset.com/  
+Expected Folder Structure:
+```
+..\Cityscapes
+        \gtCoarse
+        \gtFine
+        \gitFine_trainvaltest
+        \leftImg8but
+```
