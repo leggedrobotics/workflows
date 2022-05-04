@@ -28,12 +28,10 @@ class Cityscapes(torch.utils.data.Dataset):
         el = self.dataset_default[index]
         ori_image = self.resize_image( self.pil_to_torch(el[0]))  # CxHxW , float32
         
-        image = self.normalize( ori_image ) 
+        image = self.normalize( ori_image.clone() ) 
         label = self.resize_label( torch.from_numpy( np.array( el[1]) ).type(torch.long)[None]) # 1xHxW, int32
         
         # Ignore all labels higher than 20 given that standard Deeplab has 21 outputs so 0-20 are valid.
         label[label>20] = -1
-        
-        print(image.shape)
         return (image, label, ori_image)
         

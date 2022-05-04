@@ -3,12 +3,15 @@ import os
 import numpy as np
 import imageio
 import cv2
-from PIL import Image
+from PIL import Image, ImageDraw
+import numpy as np
 
 # matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+
+import skimage
 
 __all__ = ["Visualizer"]
 
@@ -170,3 +173,75 @@ class Visualizer:
 
         img = np.uint8(img)
         return img
+
+    @image_functionality
+    def plot_detectron(
+        self,
+        img,
+        label,
+        text_off=False,
+        alpha=0.5,
+        draw_bound=True,
+        scale=1,
+        shift=2.5,
+        font_size=12,
+        **kwargs,
+        ):
+        """
+        ----------
+        img : CHW HWC accepts torch.tensor or numpy.array
+              Range 0-1 or 0-255
+        
+        label: HW accepts torch.tensor or numpy.array
+        """
+        
+        img = self.plot_image(img, not_log=True)
+        try:
+            label = label.clone().cpu().numpy()
+        except:
+            pass
+        label = label.astype(np.long)
+
+        H, W, C = img.shape
+        uni = np.unique(label)
+        overlay = np.zeros_like(img)
+
+        centers = []
+        for u in uni:
+            m = label == u
+            col = self._meta_data["stuff_colors"][u]
+            overlay[m] = col
+            labels_mask = skimage.measure.label(m)
+            regions = skimage.measure.regionprops(labels_mask)
+            regions.sort(key=lambda x: x.area, reverse=True)
+            cen = np.mean(regions[0].coords, axis=0).astype(np.uint32)[::-1]
+
+            centers.append((self._meta_data["stuff_classes"][u], cen))
+
+        back = np.zeros((H, W, 4))
+        back[:, :, :3] = img
+        back[:, :, 3] = 255
+        fore = np.zeros((H, W, 4))
+        fore[:, :, :3] = overlay
+        fore[:, :, 3] = alpha * 255
+        img_new = Image.alpha_composite(
+            Image.fromarray(np.uint8(back)), Image.fromarray(np.uint8(fore))
+        )
+        draw = ImageDraw.Draw(img_new)
+
+        if not text_off:
+
+            for i in centers:
+                pose = i[1]
+                pose[0] -= len(str(i[0])) * shift
+                pose[1] -= font_size / 2
+                draw.text(tuple(pose), str(i[0]), fill=(255, 255, 255, 128))
+
+        img_new = img_new.convert("RGB")
+        mask = skimage.segmentation.skimage.segmentation.mark_boundaries(img_new, label, color=(255, 255, 255))
+        mask = mask.sum(axis=2)
+        m = mask == mask.max()
+        img_new = np.array(img_new)
+        if draw_bound:
+            img_new[m] = (255, 255, 255)
+        return np.uint8(img_new)

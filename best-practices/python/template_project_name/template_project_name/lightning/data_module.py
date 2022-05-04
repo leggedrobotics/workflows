@@ -20,10 +20,10 @@ class CityscapesDataModule(pl.LightningDataModule):
         self.cityscapes_val = Cityscapes(root=self.env["cityscapes_root"], split="val", target_type="semantic")
 
     def train_dataloader(self) -> DataLoader:
-        return DataLoader(self.cityscapes_train, batch_size=self.cfg_dm["batch_size"], drop_last=False, shuffle=True, pin_memory=True)
+        return DataLoader(self.cityscapes_train, batch_size=self.cfg_dm["batch_size"], drop_last=True, shuffle=True, pin_memory=True)
 
     def val_dataloader(self) -> DataLoader:
-        return DataLoader(self.cityscapes_val, batch_size=self.cfg_dm["batch_size"], drop_last=False, shuffle=False, pin_memory=True)
+        return DataLoader(self.cityscapes_val, batch_size=self.cfg_dm["batch_size"], drop_last=True, shuffle=False, pin_memory=True)
 
     def test_dataloader(self) -> DataLoader:
-        return DataLoader(self.cityscapes_test, batch_size=self.cfg_dm["batch_size"], drop_last=False, shuffle=False, pin_memory=True)
+        return DataLoader(self.cityscapes_test, batch_size=self.cfg_dm["batch_size"], drop_last=True, shuffle=False, pin_memory=True)
