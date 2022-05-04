@@ -37,6 +37,10 @@ echo 'nouveau' | sudo tee -a /etc/modules
 
 ### 6. For me using the EGPU worked with `11.3.1` and `Ubuntu 20.04` `Kernel 5.8.0-50` and the `PyTorch 1.10`
 Install it as follows ([Insturctions](https://developer.nvidia.com/cuda-11-3-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)):
+#WARNING as of April 28th 2022 NVIDIA changed the public key for their PPA and the installation instructions are still not updated as of May 4th 2022
+Please follow the instructions from this link to update the key:
+https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
