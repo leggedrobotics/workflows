@@ -54,16 +54,15 @@ class LightningNet(pl.LightningModule):
     def training_step(self, batch, batch_idx: int) -> torch.Tensor:
         image, target, ori_image = batch
         output = self(image)
-        pred = F.softmax(output["out"], dim=1)
-
+        
         # Compute Accuracy and Log
         m = target != -1
-        pred_argmax = torch.argmax(pred, dim=1, keepdim=True)
+        pred_argmax = torch.argmax(output["out"], dim=1, keepdim=True)
         self._acc[self._mode](pred_argmax[m], target[m])
         self.log(f"{self._mode}_acc_step", self._acc[self._mode])
 
         # Compute Loss
-        loss = F.cross_entropy(pred, target[:, 0, :, :], ignore_index=-1, reduction="none")
+        loss = F.cross_entropy(output["out"], target[:, 0, :, :], ignore_index=-1, reduction="none")
 
         # Visu
         self.visu(ori_image, target[:, 0, :, :], pred_argmax)
