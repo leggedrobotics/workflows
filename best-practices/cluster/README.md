@@ -131,6 +131,11 @@ my_share_info
 lquota $HOME
 ```
 
+### Finding the amount of files created within a folder
+```
+cd /cluster/work/rsl && du -a | cut -d/ -f2 | sort | uniq -c | sort -nr
+```
+
 ### Interactive Debugging:
 
 To debug on the cluster and get your code running without scheduling for each trial a new job you can get a shell on the execution node:

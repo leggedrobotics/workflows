@@ -1,0 +1,54 @@
+general:
+  timestamp: False
+  name: "test_run"
+  clean_up_folder_if_exists: True
+  checkpoint_load: "folder_relative_to_results_root"
+
+logger:
+  type: neptune
+  neptune_project_name: "ASL/learn-voxel-nav"
+
+model:
+  pretrained: False
+  pretrained_backbone: False
+  num_classes: 33 # For Cityscapes Dataset
+
+visualizer:
+  store: True
+  store_n:
+    train: 3
+    val: 3
+    test: 3
+
+data_module:
+  batch_size: 2
+  num_workers: 10
+
+optimizer:
+  lr: 0.00001
+
+cb_checkpoint:
+  active: true
+  nameing: "checkpoint"
+  cfg:
+    verbose: true
+    monitor: train_loss
+    mode: min
+    save_last: true
+    save_top_k: 3
+
+trainer:
+  precision: 32
+  fast_dev_run: false
+  # limit_train_batches: 10
+  # limit_val_batches: 10
+  # limit_test_batches: 10
+  progress_bar_refresh_rate: 1
+  max_steps: 100000000
+  max_epochs: 10
+  gpus: -1
+  num_sanity_val_steps: 0
+  check_val_every_n_epoch: 1
+  profiler: False
+  accelerator: 0
+  resume_from_checkpoint: False
