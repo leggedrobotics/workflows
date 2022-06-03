@@ -1,11 +1,11 @@
 from pytorch_lightning.loggers.neptune import NeptuneLogger
-from pytorch_lightning.loggers import TensorBoardLogger
+from pytorch_lightning.loggers import TensorBoardLogger, WandbLogger
 import os
 
 from template_project_name.utils import flatten_dict
 from template_project_name import ROOT_DIR
 
-__all__ = ["get_neptune_logger", "get_tensorboard_logger"]
+__all__ = ["get_neptune_logger", "get_wandb_logger", "get_tensorboard_logger"]
 
 
 def log_important_params(exp):
@@ -37,6 +37,16 @@ def get_neptune_logger(exp, env, exp_p, env_p, project_name="jonasfrey96/asl"):
         tags=[os.environ["ENV_WORKSTATION_NAME"], name_full.split("/")[-2], name_full.split("/")[-1]],
     )
 
+def get_wandb_logger(exp, env, exp_p, env_p,  project_name, save_dir):
+    params = log_important_params(exp)
+    name_full = exp["general"]["name"]
+    name_short = "__".join(name_full.split("/")[-2:])
+    return WandbLogger( 
+        name=name_short,
+        project=project_name,
+        entity= exp["logger"]["wandb_entity"],
+        save_dir=save_dir,
+    )
 
 def get_tensorboard_logger(exp, env, exp_p, env_p):
     params = log_important_params(exp)

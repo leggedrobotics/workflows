@@ -82,16 +82,23 @@ def image_functionality(func):
                         args[0]._pl_model.logger.experiment[tag].log(File.as_image(np.float32(ds) / 255), step=epoch)
                     except:
                         try:
-                            # logger == tensorboard
-                            args[0]._pl_model.logger.experiment.add_image(
-                                tag=tag,
-                                img_tensor=ds,
-                                global_step=epoch,
-                                dataformats="HWC",
-                            )
+                        # logger == wandb
+                            import wandb
+                            args[0]._pl_model.logger.experiment.log({
+                                tag: [wandb.Image(ds, caption=tag)]
+                            }, commit=False)
                         except:
-                            print("Tensorboard Logging and Neptune Logging failed !!!")
-                            pass
+                            try:
+                                # logger == tensorboard
+                                args[0]._pl_model.logger.experiment.add_image(
+                                    tag=tag,
+                                    img_tensor=ds,
+                                    global_step=epoch,
+                                    dataformats="HWC",
+                                )
+                            except:
+                                print("Tensorboard Logging and Neptune Logging failed !!!")
+                                pass
 
         return func(*args, **kwargs)
 

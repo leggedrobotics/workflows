@@ -1,10 +1,12 @@
 from template_project_name import ROOT_DIR
 from template_project_name.lightning import LightningNet, CityscapesDataModule
-from template_project_name.utils import get_neptune_logger, get_tensorboard_logger, load_yaml, flatten_dict
+from template_project_name.utils import get_neptune_logger, get_wandb_logger, get_tensorboard_logger, load_yaml, flatten_dict
 
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 from pytorch_lightning.profiler import AdvancedProfiler
+from pytorch_lightning.plugins import DDP2Plugin, DDPPlugin, DDPSpawnPlugin
+from pytorch_lightning.utilities import rank_zero_only
 
 import torch
 import argparse
@@ -27,26 +29,31 @@ def train(exp) -> float:
     ####################################################################################################################
 
     ############################################  CREAT EXPERIMENT FOLDER  #############################################
-    if exp["general"]["timestamp"]:
-        timestamp = datetime.datetime.now().replace(microsecond=0).isoformat()
-        model_path = os.path.join(env["results"], exp["general"]["name"])
-        p = model_path.rfind("/") + 1
-        model_path = model_path[:p] + str(timestamp) + "_" + model_path[p:]
-    else:
-        model_path = os.path.join(env["results"], exp["general"]["name"])
-        if exp["general"]["clean_up_folder_if_exists"]:
-            shutil.rmtree(model_path, ignore_errors=True)
+    @rank_zero_only
+    def create_experiment_folder():
+        if exp["general"]["timestamp"]:
+            timestamp = datetime.datetime.now().replace(microsecond=0).isoformat()
+            model_path = os.path.join(env["results"], exp["general"]["name"])
+            p = model_path.rfind("/") + 1
+            model_path = model_path[:p] + str(timestamp) + "_" + model_path[p:]
+        else:
+            model_path = os.path.join(env["results"], exp["general"]["name"])
+            if exp["general"]["clean_up_folder_if_exists"]:
+                shutil.rmtree(model_path, ignore_errors=True)
 
-    # Create the directory
-    Path(model_path).mkdir(parents=True, exist_ok=True)
+        # Create the directory
+        Path(model_path).mkdir(parents=True, exist_ok=True)
 
-    # Copy config files
-    exp_cfg_fn = os.path.split(exp_cfg_path)[-1]
-    env_cfg_fn = os.path.split(env_cfg_path)[-1]
-    print(f"Copy {env_cfg_path} to {model_path}/{exp_cfg_fn}")
-    shutil.copy(exp_cfg_path, f"{model_path}/{exp_cfg_fn}")
-    shutil.copy(env_cfg_path, f"{model_path}/{env_cfg_fn}")
-    exp["general"]["name"] = model_path
+        # Copy config files
+        exp_cfg_fn = os.path.split(exp_cfg_path)[-1]
+        env_cfg_fn = os.path.split(env_cfg_path)[-1]
+        print(f"Copy {env_cfg_path} to {model_path}/{exp_cfg_fn}")
+        shutil.copy(exp_cfg_path, f"{model_path}/{exp_cfg_fn}")
+        shutil.copy(env_cfg_path, f"{model_path}/{env_cfg_fn}")
+        exp["general"]["name"] = model_path
+        return model_path
+
+    model_path = create_experiment_folder()
     ####################################################################################################################
 
     #################################################  CREATE LOGGER  ##################################################
@@ -67,6 +74,18 @@ def train(exp) -> float:
             [str(s) for s in Path(os.getcwd()).rglob("*.py") if str(s).find("vscode") == -1]
         )
         logger._run_instance["cfg"].upload_files([exp_cfg_path, env_cfg_path])
+
+    elif exp["logger"]["type"] == "wandb":
+        logger = get_wandb_logger(
+            exp=exp,
+            env=env,
+            exp_p=exp_cfg_path,
+            env_p=env_cfg_path,
+            project_name=exp["logger"]["wandb_project_name"],
+            save_dir=model_path
+        )
+        ex = flatten_dict(exp)
+        logger.log_hyperparams(ex)
 
     elif exp["logger"]["type"] == "tensorboard":
         logger = get_tensorboard_logger(exp=exp, env=env, exp_p=exp_cfg_path, env_p=env_cfg_path)
@@ -114,6 +133,16 @@ def train(exp) -> float:
         exp["trainer"]["resume_from_checkpoint"] = os.path.join(env["results_root"], exp["generatl"]["checkpoint_load"])
     else:
         del exp["trainer"]["resume_from_checkpoint"]
+
+    # add distributed plugin
+    if  exp["trainer"]["gpus"] > 1:
+        if exp["trainer"]["accelerator"] == "ddp" or exp["trainer"]["accelerator"] is None:
+            ddp_plugin = DDPPlugin(find_unused_parameters=exp["trainer"].get("find_unused_parameters", False))   
+        elif exp["trainer"]["accelerator"] == "ddp_spawn":
+            ddp_plugin = DDPSpawnPlugin(find_unused_parameters=exp["trainer"].get("find_unused_parameters", False))
+        elif exp["trainer"]["accelerator"] == "ddp2":
+            ddp_plugin = DDP2Plugin(find_unused_parameters=exp["trainer"].get("find_unused_parameters", False))
+        exp["trainer"]["plugins"] = [ddp_plugin]
 
     trainer = Trainer(
         **exp["trainer"],
