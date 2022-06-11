@@ -124,6 +124,41 @@ pip3 install -e ./project_name
 ## IDE - VSCode Setup
 
 ### Debugging
+Make sure to use all of the features or your IDE for debugging.
+Read this fully [Tutorial](https://code.visualstudio.com/docs/editor/debugging).
+In vscode you can create a Debugging Configration as follows:
+Open the `.vscode/launch.json`
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Train Script TemplateProject",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/username/git/workflows/best-practices/python/template_project_name/scripts/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "pythonPath": "/home/username/miniconda3/envs/py38/bin/python3",
+            "args": [
+                "--exp=/path/to/something.yml",
+                "--other=arg",
+            ]
+        },
+    ]
+}
+```
+
+Find the correct `pythonPath` by using the `which python3` command in your terminal.  
+#### Checklist what you should be able to do:
+
+- Creating Debugging Configurations
+- Using Breakpoints
+- Using the Debug Console
+- Checking the Local Variable Scope
+- Understanding the Call Stack
+
+
 
 ### Special Tricks
 
