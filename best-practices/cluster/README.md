@@ -88,19 +88,19 @@ module load eth_proxy
 ```
 
 See active modules:
-```
+```bash
 module list
 ```
 
 See available modules:
-```
+```bash
 module avail
 ```
 
 # Scheduling:
 
 Example command:
-```
+```bash
 bsub -n 18  \
     -W 4:00 \
     -R singularity  \
@@ -122,17 +122,17 @@ bsub -n 18  \
 - `-s` Will give you a login shell to the compute node
 # Tipps:
 ### Checking your usergroup: 
-```
+```bash
 my_share_info
 ```
 
 ### Check file limits and memory limits of different directories
-```
+```bash
 lquota $HOME
 ```
 
 ### Finding the amount of files created within a folder
-```
+```bash
 cd /cluster/work/rsl && du -a | cut -d/ -f2 | sort | uniq -c | sort -nr
 ```
 
@@ -150,7 +150,7 @@ bsub -Is ..specify other resources for the job.. tmux
 
 ### Colors on the cluster:
 Append to following to your `$HOME/.bashrc` on the cluster to get color support. 
-```
+```bash
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have color support; assume it's compliant with Ecma-48
@@ -172,14 +172,18 @@ unset color_prompt force_color_prompt
 
 ### Monitor resource usage:
 Prints all running or scheduled jobs:
-```
+```bash
 bjobs
 ```
 
 
 Provides detailed information about a job.  
 If you have a low `Resource usage` change your core usage or write more performant code.
-```
+```bash
 bbjobs JOB_ID
 ```
 
+### Get size of all subfolders:
+```bash
+sudo du -h --max-depth=1 ./
+```

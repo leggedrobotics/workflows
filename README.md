@@ -19,11 +19,10 @@
 
 | &nbsp; &nbsp; &nbsp; &nbsp; Access &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Cluster](./access/cluster)                                           | Access Management                                                                                                                                                                                                                                                                                                                                            |
 
 
 ## Questions
-So if something is not working please open up an issue on GitHub.
+If you have any questions please open up an issue on GitHub.
 If you found something to be unclear or wrong please create a new branch following the best practices on [Collaborating](./best-practices/collaboration).
 
 

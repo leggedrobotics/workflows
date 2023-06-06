@@ -5,39 +5,47 @@ https://google.github.io/styleguide/pyguide.html
 
 ## General best practices:
 ### Type hinting:
-https://docs.python.org/3/library/typing.html 
-https://peps.python.org/pep-0483/ 
-PEP conventions for designing classes, interfaces
-https://peps.python.org/pep-0008/ 
-https://peps.python.org/pep-0008/#naming-conventions 
+Typing
+- https://docs.python.org/3/library/typing.html  
+- https://peps.python.org/pep-0483/  
+
+PEP conventions for designing classes, interfaces  
+- https://peps.python.org/pep-0008/  
+- https://peps.python.org/pep-0008/#naming-conventions  
 
 ### Python packaging:
-Tool: https://github.com/audreyfeldroy/cookiecutter-pypackage 
-Docstrings:
-https://peps.python.org/pep-0257/ 
+Tool: https://github.com/audreyfeldroy/cookiecutter-pypackage  
+
+Docstrings: https://peps.python.org/pep-0257/  
 
 ### Order of imports
-Python built-in first, then your pip ones, then your module
-Avoid circular dependencies! Rethink your structure if this ever happens
-All imports at the top of the file. It should be avoided (this is also flake8 imposed)
+- Python built-in first, then your pip ones, then your modules.  
+- Avoid circular dependencies!  
+- Rethink your structure if this ever happens.  
+- All imports should be defined at the top of the file.  
+- It should be avoided (this is also flake8 imposed).
 
 ### Writing classes
-Avoiding code duplication is nice BUT not at the expense of too many interface classes
-Readability >>> Modularity
-If things share similar “calls” then make a pure abstract class
-Inheritance more than two levels is typically bad for readability
-Don’t over-generalize until there are clear usecases in mind
-### Handling configurations
-YAML vs JSON vs Python dataclasses
-This is a huge debate within the community as what is the best way to store configuration files
-Personal preference (Mayank): Python dataclasses
-Imposing a structure over configuration is nice because then you don’t define loose variables that are not used inside the code
-Gain a lot from IDE providing the config parameter in your class
-YAML/JSON:
- Light-weight– use dicts for storage after parsed
-Many tools already have ways to track experiments with these config files? Jonas Frey
-### Linting:
+- Avoiding code duplication is nice BUT not at the expense of too many interface classes:
+**Readability >>> Modularity**
 
+- If things share similar “calls” then make a pure abstract class.  
+- Inheritance more than two levels is typically bad for readability.  
+- Don’t over-generalize until there are clear usecases in mind.  
+
+### Handling configurations
+- YAML vs JSON vs Python dataclasses
+- This is a huge debate within the community as what is the best way to store configuration files
+- Personal preference (Mayank): Python dataclasses
+- Imposing a structure over configuration is nice because then you don’t define loose variables that are not used inside the code
+- Gain a lot from IDE providing the config parameter in your class
+
+- **YAML/JSON:**
+    - Light-weight – use dicts for storage after parsed
+    - Many tools already have ways to track experiments with these config files.
+
+### Linting:
+We use **flake8** for linting the python code:
 ```shell
 # for checking lints
 pip install flake8
@@ -47,7 +55,8 @@ flake8 .
 ### Formatting:
 
 Use a code formatter!
-We use black formatter for formatting the python code and flake8 for linting. To run the formatter:
+We use **black** for formatting the python code: 
+To run the formatter:
 
 ```shell
 # for formatting
@@ -59,8 +68,8 @@ black --line-length 120 .
 
 | **Tool**            | **Pros**                                                                             | **Cons**                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| System Installation | +simple<br> +works with ROS                                                          | -cannot be shared<br> -dependecies problems when working on multiple projects |
-| Conda               | + easy to setup and share<br> + wide adopted<br> + clear separation between projects | +works only with ROS with additional packages                                 |
+| System Installation | ![#8fce00](https://via.placeholder.com/15/8fce00/000000?text=+) simple<br> ![#8fce00](https://via.placeholder.com/15/8fce00/000000?text=+) works with ROS                                                          | ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) cannot be shared<br> ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) dependecies problems when working on multiple projects |
+| Conda               | ![#8fce00](https://via.placeholder.com/15/8fce00/000000?text=+) easy to setup and share<br> ![#8fce00](https://via.placeholder.com/15/8fce00/000000?text=+) wide adopted<br> ![#8fce00](https://via.placeholder.com/15/8fce00/000000?text=+) clear separation between projects | ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) works only with ROS with additional packages                                 |
 | Virual Env          |                                                                                      |                                                                               |
 
 
@@ -73,49 +82,51 @@ They are straight forward to integrate.
 On the cluster make sure to activate the proxy module.  
 
 ### Hyperparameter Optimization
-Optuna
+We have good experience with using [Optuna](https://optuna.org/)
 
 
 
 ## Setting up a project
-
+Installing your project as a package can provide quite a few benfits.   
+This allows to easily avoid global pats and avoid import problems.
+```yaml
+project_name:
+├──cfg:	
+│    ├──env:
+│    │   ├──my_machine.yml 
+│    │   └──cluster.yml 
+│    └──exp:
+│        ├──exp_lr.yml 
+│        └──exp_architecture.yml
+│
+├──project_name:
+│    ├──network:
+│    │   ├──network.py	
+│    │   ├──__init__.py
+│    ├──visualizer:
+│    │   ├──visualizer.py
+│    │   ├──__init__.py
+│    └──utils:
+│        └──__init__.py
+│            
+├──docs:
+│    ├──overview.png
+│    └──result.png
+│        
+├──scripts:
+│    ├──train.py
+│    ├──test.py
+│    └──hyperparmeter.py 
+│
+├──setup.py
+├──setup.cfg
+├──.gitignore
+├──README.md
 ```
-project_name
-    cfg	
-        env:
-            my_machine.yml 
-            cluster.yml 
-        exp:
-            exp_lr.yml 
-            exp_architecture.yml
 
-    project_name
-        network
-            network.py	
-            __init__.py
-        visualizer
-            visualizer.py
-            __init__.py
-        utils
-            __init__.py
-            
-    docs
-        overview.png
-        result.png
-        
-    scripts
-        train.py
-        test.py
-        hyperparmeter.py 
-
-    setup.py
-    setup.cfg
-    .gitignore
-    README.md
-```
-
+```shell
 pip3 install -e ./project_name
-
+```
 
 
 
@@ -125,7 +136,7 @@ pip3 install -e ./project_name
 
 ### Debugging
 Make sure to use all of the features or your IDE for debugging.
-Read this fully [Tutorial](https://code.visualstudio.com/docs/editor/debugging).
+Read this [Tutorial](https://code.visualstudio.com/docs/editor/debugging) fully. This will save you a lot of time.
 In vscode you can create a Debugging Configration as follows:
 Open the `.vscode/launch.json`
 ```json
