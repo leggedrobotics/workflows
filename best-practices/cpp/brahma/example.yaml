@@ -1,0 +1,35 @@
+# Complete overlay adds all packages in the git directory to the catkin workspace
+complete_overlay: false
+
+# Filter packages as a list of package names (for empty [])
+filter_packages:
+- example_package_1
+- example_package_2
+
+# Explicit packages as a list of package names (for empty [])
+explicit_packages:
+- example_package_3
+- example_package_4
+
+# Add repositories as a dictionary of path in the git dir and remote url (for empty {})
+git_repositories:
+  example : [git@example.com:example/example.git, master]
+  more_examples: [git@example.com:example/more_examples.git, release]
+
+# Supported IDEs: clion, none
+ide: none
+
+# Include all downstream dependencies
+include_downstream_dependencies: true
+
+# Include all dependencies that are not installed
+include_missing_dependencies: false
+
+# Include all upstream dependencies
+include_upstream_dependencies: false
+
+# Only filters downstream packages instead of all packages
+only_filter_downstream_packages: false
+
+# Ros distribtion to use
+ros_distro: noetic

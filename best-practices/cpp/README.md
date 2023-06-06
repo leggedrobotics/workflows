@@ -1,4 +1,4 @@
-# Best practices cpp
+# Best Practices cpp
 
 This package containts a hints and examples for (more) effective cpp development.
 
@@ -10,13 +10,20 @@ The utility package [cmake_clang_tools](https://github.com/ANYbotics/cmake_clang
 
 No matter which coding style you choose, you should stick to it and be consistent. Each coding style comes with some tradeoffs and the only thing that matters in the end is consistency. Once you get used to the new coding style, you will save lots of time reading through the code.
 
-## ROS integration
+## Templates
+
+Further template files and instructions are provided for:
+- [Brahma ROS Workspace Template](./brahma) 
+- [Automatic Code Coverage](./code_coverage)
+- [Clion Project Template](./clion_template_project) 
+
+## ROS Integration
 
 ROS should be used as the middle layer for nodes to communicate. For your main code, create standalone libraries and provide a ROS-interface. Don’t put ROS dependencies in the core of your algorithm!
 
 A good example on how to properly do this is the grid_map package from Anybotics: [grid_map](https://github.com/ANYbotics/grid_map).
 
-## Software design
+## Software Design
 
 There are plenty of resources about software design online, however they can all (give or take) be traced to a few simple princliples called SOLID design ([wiki](https://en.wikipedia.org/wiki/SOLID)). It is recommended to
 familiarize yourself with those principles. You can find a quick overview with some examples [here](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design#single-responsibility-principle).
@@ -131,7 +138,7 @@ There are multiple useful idioms that you can find, however one that is particul
 You can find a brief explanation of what it does [here](https://cpppatterns.com/patterns/pimpl.html).
 
 
-## Writing expressive code
+## Writing Expressive Code
 
 
 ### Naming
@@ -271,11 +278,11 @@ Which snippet took less time to read and understand?
 
 Note that STL has many functions implemented and you can often use it to easily convey your intent. A great resource for exploring various usages of STL is (again) the [fluentCPP](https://www.fluentcpp.com/STL/) blog.
 
- ## Optimizing code
+ ## Optimizing Code
   
 In general, it is a good idea to first make the code correct and then worry about the speed. Maybe it's fast enough; if it is, you're done and you save yourself valuable time that would have been spent optimizing otherwise. Note that optimizing the code often reduces readability and maintainability so you should have a good reason for doing so. This [blog](https://github.com/facontidavide/CPP_Optimizations_Diary) deals specifically with optimizations in cpp. [cppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#S-performance) also has a section on code optimization. Can you guess what is the No.1 rule that they both list? 
   
- ## Other resources
+ ## Other Resources
  
 **Online**  
   
