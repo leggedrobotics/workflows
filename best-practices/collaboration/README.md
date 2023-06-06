@@ -50,11 +50,10 @@ Recommended workflows:
 
 ## Two Main Developers
 - Follow Single Main Developer guide.
-- Before merging a branch into `main` rebase to the latest main release.
 - Each `pull request` to main has to be approved by the other developer.
 
 ## Multiple Developers
-- Add CI/CD Integration, GitHub Actions are handy
-- Automated code-formatting and checking 
-- Automated unit testing
+- Add CI/CD Integration, GitHub Actions are handy.
+- Automated code-formatting and checking. 
+- Automated unit testing.
 
